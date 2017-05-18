@@ -15,3 +15,7 @@ sess.run(init)
 for i in range(1000):
     batch_xs, batch_ys, = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y: batch_ys})
+
+correct_prediction = tf.equal(tf.arg_max(y, 1), tf.arg_max(y_, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
